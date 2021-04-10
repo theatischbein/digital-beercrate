@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-5">Login</h1>
+  <hr class="my-4">
+  <div class="card">
+    <div class="card-body">
+      <form method="post">
+          {% csrf_token %}
+          <div class="form-row justify-content-md-center">
+              <div class="form-group col-md-8 mb-0">
+                  {{ form|crispy }}
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group cold-md-3 mb-0 align-self-end">
+                  <button type="submit" class="btn btn-primary">Anmelden</button>
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

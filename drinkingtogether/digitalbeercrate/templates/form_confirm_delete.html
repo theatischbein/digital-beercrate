@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<h3></h3>
+
+<div class="card mb-3">
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete?</p>
+        <p>{{ object }}</p>
+        <div class="form-row">
+          <div class="form-group cold-md-3 mb-0 align-self-end">
+            <button type="submit" class="btn" onclick="history.back()">Back</button>
+            <button type="submit" class="btn btn-primary">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

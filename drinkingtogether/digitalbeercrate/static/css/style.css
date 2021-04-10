@@ -1,0 +1,58 @@
+.timeslots input[type="radio"]:checked+label {
+    background-color: #007bff;
+    color: #eee;
+    font-weight: bold;
+ }
+
+.timeslots .form-check{
+    margin-bottom: 5px;
+    margin-left: 25px;
+}
+
+.timeslots .form-check .form-check-label{
+    background-color: #eee;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.timeslots .label:nth-child(even) {
+    background-color: lightgrey;
+}
+
+.timeslots .form-check .label:hover{
+    background-color: #007bff;
+}
+
+.timeslots input[type="radio"] {
+    display:none;
+  }
+
+.timeslots input[type="radio"] + label::before {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    border: 2px solid #eee;
+    background-color: #fff;
+    display: block;
+    content: "";
+    float: left;
+    margin-right: 5px;
+    position: absolute;
+    top: 7px;
+    left: -15px;
+    opacity: 100;
+  }
+
+.timeslots input[type="radio"]:checked+label::before {
+    box-shadow: inset 0px 0px 0px 3px #eee;
+    background-color: #007bff;
+    border: 2px solid #007bff;
+  }
+
+#div_id_email {
+    display: none;
+}

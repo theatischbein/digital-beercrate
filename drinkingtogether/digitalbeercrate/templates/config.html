@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3>Configuratoin</h3>
+<a href="{% url 'beercrate_config_create' %}" class="btn btn-primary mb-3">New Donation Goal</a>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <th>Name</th>
+                    <th>Website</th>
+                    <th>Donation Account</th>
+                    <th>Image URL</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    {% for goal in donation_goals %}
+                        <tr>
+                            <td>{{ goal.name }}</td>
+                            <td><a href="{{ goal.website }}" target="_blank">{{ goal.website }}</a></td>
+                            <td>{{ goal.account }}</td>
+                            <td><img src="{{ goal.image }}" alt="{{ goal.image }}" width="200px"></td>
+                            <td>{{ goal.description }}</a></td>
+                            <td><a href="{% url 'beercrate_config_edit' goal.id %}"><i class="fas fa-edit"></i></a></td>
+                            <td><a href="{% url 'beercrate_config_delete' goal.id %}"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

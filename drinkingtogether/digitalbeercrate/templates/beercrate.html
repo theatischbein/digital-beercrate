@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+{% block header %}
+<style>
+    .crate-grid-container {
+        display: inline-grid;
+        grid-template-rows:    repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0px 0px;
+        min-height: 359px;
+        min-width: 287px;
+        border: 3px solid red;
+        background-color: darkred;
+    }
+    .crates-grid-container {
+        display: inline-grid;
+        grid-template-rows:    repeat(5, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0px 0px;
+    }
+</style>
+{% endblock %}
+
+<h3>{{ title }}</h3>
+
+<h3>Digital Soli-Beercrate</h3>
+<button id="startConfetti" style="display: none;">Party</button>
+<button id="stopConfetti" style="display: none;">stop</button>
+<button id="restartConfetti" style="display: none;">restart</button>
+
+<div class="row">
+    <div class="col-xl-1 col-md-1 col-sm-0">
+        <img id="success_beer" src="/static/sterni.gif" style="margin-top: 3em; display: none;">
+    </div>
+    <div class="col-xl-9 col-md-9 col-sm-12">
+        <div class="text-right">Last Beer before: <span id="lastDiff"></span></div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div id="beer-content" class="mb-3">
+                    <div id="currentInfo">
+                        <div id="lastLocalUpdate" style="display: none;"></div>
+                        <div id="totalbeer" style="display: none;"></div>
+                        <div id="currentDate" style="display:none;">{{ beer.time|date:"Y-m-d" }}T{{ beer.time|time:"H:i:s" }}</div>
+                        <div id="tooFast" class="alert alert-danger text-center" style="display: none;">You can't drink that fast, can you ?</div>
+                    </div>
+
+                    <div id="info" class="alert alert-info text-center">
+                        {% if not beer %}
+                            Nothing has been drunk yet...
+                        {% endif %}
+                    </div>
+                    <button id="add" class="btn btn-danger mb-3 w-100">Take 1 Beer</button>
+                    <div class="row mt-3">
+                        <div class="col-xl col-lg col-md col-sm text-center">
+                            <h4>Current Crate</h4>
+                            <div id="crate" count=0 class="crate-grid-container"></div>
+                        </div>
+                        <div class="col-xl col-lg col-md col-sm">
+                            <h4>Full Crates (Until now: <span class="crate-count" count=0>0</span>)</h4>
+                            <div id="crates" count=0 class="crates-grid-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="endInfo" style="display: none;">
+                    <h3>The donation goal has been reached!</h3>
+                    <div class="row mb-3">
+                        <div class="col-lg-8 col-sm-12">
+                            <div class="alert alert-info h-100">
+                                <strong>Yuuuhuuuuu!</strong><br />
+                                You drunk <strong><span class="beer-count">X</span></strong> Bottles, so more than <strong><span class="crate-count">Y</span></strong> Crates!<br />
+                                <br />
+                                <img src="/static/further_infos.png" class="mx-auto d-block">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <img src="/static/ending.jpg" class="rounded mx-auto d-block mr-3" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <h4>Donation Goals</h4>
+                <div class="row mb-3" id="fundraising-content">
+                    {% for goal in donation_goals %}
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="card mb-3 h-100">
+                                <div class="card-header text-center">
+                                    <strong>{{ goal.name }}</strong><br /><span id="destination{{ forloop.counter }}"></span>
+                                </div>
+                                <div class="card-body">
+                                    {{ goal.description|linebreaksbr }}<br />
+                                    <img width="100%" src="{{ goal.image }}" class="rounded mx-auto d-block">
+                                    <br />
+                                    <div class="alert alert-success mt-3">
+                                        <strong>Website:</strong> <a href="{{ goal.website }}" target="_blank">{{ goal.website }}</a><br />
+                                        <br /><br />
+                                        <strong>Donation Account:</strong><br />
+                                        {{ goal.account|linebreaksbr }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-2 col-sm-0">
+        <img id="click_me" src="/static/clickme.gif" class="img-fluid" style="margin-left: -1em; padding-top: 5em;">
+    </div>
+</div>
+<canvas id="confettiCanvas" style="position:absolute;top:0;left:0;display:none;z-index:99;"></canvas>
+<script type="text/javascript" src="/static/js/jquery.confetti.js"></script>
+<audio id="pop">
+    <source src="/static/bottle.mp3" type="audio/mpeg" controls autoplay playsinline muted>
+</audio>
+<script type="text/javascript" src="/static/js/beercrate.js"></script>
+{% endblock %}

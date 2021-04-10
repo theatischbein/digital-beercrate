@@ -10,7 +10,7 @@ Digital Beercrate to drink with friends to enjoy drinking together, reach a cert
 ````
 virtualenv -p /bin/python3 .venv
 ````
-3. Adjust Django Settings. (E.g. change database type or enable production mode, etc.)
+3. Adjust Django Settings. (E.g. change database type or enable production mode, etc.) **Attention:** Don't forget to change the secret key in `settings.py`.
 5. Activate Virtual Environment with
 ````
 . .venv/bin/activate
